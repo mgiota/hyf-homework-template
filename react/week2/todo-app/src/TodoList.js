@@ -1,4 +1,5 @@
 import React from 'react';
+import TodoItem from './todo-item/todo-item'
 
 class TodoList extends React.Component {
   constructor(props) {
@@ -68,25 +69,13 @@ class TodoList extends React.Component {
       <div className="App">
         <button onClick={() => this.addTodo()}>Add todo</button>
         <ul>
-          { this.state.todos.map(todo => {
-            return (
-              <li key={todo.id}>
-                { todo.completed 
-                  ? 
-                  <label style={{textDecoration: 'line-through'}} htmlFor="completeTodo">{todo.description}</label>
-                  :
-                  <label htmlFor="completeTodo">{todo.description}</label>
-
-              }
-                <input 
-                  name="completeTodo"
-                  type="checkbox"
-                  onChange={() => this.toggleTodo(todo.id)}
-                />
-                <button onClick={() => this.deleteTodo(todo.id)}>Delete</button>
-              </li>
-            )
-          })}
+          { this.state.todos.map(todo => 
+            <TodoItem 
+              key={todo.id}
+              todo={todo} 
+              deleteTodo={() => this.deleteTodo(todo.id)}
+              toggleTodo={() => this.toggleTodo(todo.id)}
+            />)}
         </ul>
       </div>
     );
