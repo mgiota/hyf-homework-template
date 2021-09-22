@@ -1,7 +1,8 @@
 import React from 'react';
-import TodoItem from './todo-item/todo-item'
+import TodoItem from './todo-item/todo-item';
+import AddTodoForm from './add-todo/add-todo';
 
-class TodoList extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,12 +23,12 @@ class TodoList extends React.Component {
     // this.addTodo = this.addTodo.bind(this);
   }
 
-  addTodo() {
+  addTodo(description) {
     const  generateId = () => {
       const latestId = this.state.todos[this.state.todos.length - 1].id;
       return latestId + 1;
     }
-    const newItem = { id: generateId(), description: 'Gym', completed: false};
+    const newItem = { id: generateId(), description, completed: false};
     let newItems = this.state.todos.concat(newItem);
     this.setState({
       todos: newItems
@@ -64,10 +65,23 @@ class TodoList extends React.Component {
     });
   }
 
+  updateTodo(id, newDescription) {
+    const updatedTodos = this.state.todos.map(todo => {
+      if (todo.id === id) {
+        return {...todo, description: newDescription}
+      } else {
+        return todo
+      }
+    });
+    this.setState({ todos: updatedTodos})
+  }
+
   render() {
     return (
       <div className="App">
-        <button onClick={() => this.addTodo()}>Add todo</button>
+        <AddTodoForm 
+          addTodo={(description) => this.addTodo(description)} 
+        />
         <ul>
           { this.state.todos.map(todo => 
             <TodoItem 
@@ -75,12 +89,12 @@ class TodoList extends React.Component {
               todo={todo} 
               deleteTodo={() => this.deleteTodo(todo.id)}
               toggleTodo={() => this.toggleTodo(todo.id)}
+              updateTodo={(newDescription) => this.updateTodo(todo.id, newDescription)}
             />)}
         </ul>
       </div>
     );
   }
-  
 }
 
-export default TodoList;
+export default App;
