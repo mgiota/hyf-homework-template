@@ -10,12 +10,14 @@ class App extends React.Component {
         {
           id: 1,
           description: 'Cook',
-          completed: false
+          completed: false,
+          deadline: '2019/02/04'
         },
         {
           id: 2,
           description: 'Clean',
-          completed: false
+          completed: false,
+          deadline: '2021/09/03'
         }
       ]
     };
@@ -23,12 +25,12 @@ class App extends React.Component {
     // this.addTodo = this.addTodo.bind(this);
   }
 
-  addTodo(description) {
+  addTodo = (description, deadline) => {
     const  generateId = () => {
       const latestId = this.state.todos[this.state.todos.length - 1].id;
       return latestId + 1;
     }
-    const newItem = { id: generateId(), description, completed: false};
+    const newItem = { id: generateId(), description, completed: false, deadline};
     let newItems = this.state.todos.concat(newItem);
     this.setState({
       todos: newItems
@@ -80,7 +82,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <AddTodoForm 
-          addTodo={(description) => this.addTodo(description)} 
+          addTodo={this.addTodo} 
         />
         <ul>
           { this.state.todos.map(todo => 

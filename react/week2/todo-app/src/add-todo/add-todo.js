@@ -1,27 +1,34 @@
 import React, { useState } from 'react';
 
 export default function AddTodoForm(props) {
-  const [value, setValue] = useState('');
+  const [description, setDescription] = useState('');
+  const [deadline, setDeadline] = useState('');
+
   const { addTodo } = props;
-  const onChange = (e) => {
-    const value = e.target.value;
-    console.log(`value: ${value}`);
-    setValue(value);
-  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTodo(value);
-    setValue('');
+    addTodo(description, deadline);
+    setDescription('');
+    setDeadline('');
   }
   return (
     <>
     <form onSubmit={handleSubmit}>
       <label>
-        Add todo:
+        Description:
         <input
           type="text"
-          value={value}
-          onChange={onChange}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </label>
+      <label>
+        Deadline:
+        <input
+          type="date"
+          value={deadline}
+          onChange={(e) => setDeadline(e.target.value)}
         />
       </label>
       <button>Add todo</button>
