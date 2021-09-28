@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-const Context = React.createContext();
+export const Context = React.createContext();
 
 // whatever state we put into this Provider 
 // provider is going to wrap every other component
