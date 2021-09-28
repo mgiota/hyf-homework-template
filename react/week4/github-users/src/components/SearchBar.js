@@ -4,12 +4,12 @@ import { Context } from '../context';
 
 export function SearchBar() {
   const [username, setUsername] = useState('');
-  const { dispatch } = useContext(Context);
+  const { searchUsers } = useContext(Context);
 
   const onChange = (e) => {
     const value = e.target.value;
     setUsername(value);
-    dispatch(value);
+    searchUsers(value);
   }
  
   return (

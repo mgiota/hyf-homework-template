@@ -5,17 +5,17 @@ import { useState } from 'react';
 import { SearchBar } from './SearchBar';
 import { UserList } from './UserList';
 
-import { Provider } from '../context';
+import UsersState from '../UsersState';
 
 function App() {
   return (
-    <Provider>
+    <UsersState>
       <div className="App">
         <h1>Github User Searcher</h1> 
         <SearchBar />
         <UserList />
       </div>
-    </Provider>
+    </UsersState>
   );
 }
 
